@@ -1,0 +1,7 @@
+{
+  "name": "tiny-places-server",
+  "version": "0.1.0",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
