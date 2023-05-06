@@ -22,11 +22,13 @@ const LISTINGS = `
   }
 `;
 
-const DELETE_LISTING = `mutation DeleteListing ($id: ID!) {
-  deleteListing(id: $id){
-    id
+const DELETE_LISTING = `
+  mutation DeleteListing($id: ID!) {
+    deleteListing(id: $id) {
+      id
+    }
   }
-}`;
+`;
 
 interface Props {
   title: string;
@@ -52,7 +54,7 @@ export const Listings = ({ title }: Props) => {
       {listings.map((listing) => {
         return (
           <li key={listing.id}>
-            {listing.title}
+            {listing.title}{" "}
             <button onClick={() => handleDeleteListing(listing.id)}>
               Delete
             </button>
@@ -76,7 +78,7 @@ export const Listings = ({ title }: Props) => {
 
   const deleteListingErrorMessage = deleteListingError ? (
     <h4>
-      Uh oh! Something went wrong with deleting - please try again later ;(
+      Uh oh! Something went wrong with deleting :(. Please try again soon.
     </h4>
   ) : null;
 
