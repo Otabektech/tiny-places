@@ -1,8 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+
 import { Listings } from "./sections/Listings";
 // import { render } from "react-dom";
 import reportWebVitals from "./reportWebVitals";
+
+const client = new ApolloClient({ uri: "/api", cache: new InMemoryCache() });
 
 // render(
 //   <Listings title="Tiny-Places Listings" />,
@@ -13,7 +17,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Listings title="Tiny-Places Listings" />,
+    <ApolloProvider client={client}>
+      <Listings title="Tiny-Places Listings" />,
+    </ApolloProvider>
   </React.StrictMode>
 );
 
