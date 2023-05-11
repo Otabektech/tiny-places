@@ -1,0 +1,8 @@
+{
+  "data": {
+    "introspection_response": "schema {\n  query: Query\n  mutation: Mutation\n}\ntype Listing {\n  id: ID!\n  title: String!\n  image: String!\n  address: String!\n  price: Int!\n  numOfGuests: Int!\n  numOfBeds: Int!\n  numOfBaths: Int!\n  rating: Int!\n}\ntype Query {\n  listings: [Listing!]!\n}\ntype Mutation {\n  deleteListing(id: ID!): Listing!\n}\n\"Exposes a URL that specifies the behavior of this scalar.\"\ndirective @specifiedBy(\n    \"The URL that specifies the behavior of this scalar.\"\n    url: String!\n  ) on SCALAR\n",
+    "success": true
+  },
+  "error": null,
+  "json_version": "1"
+}

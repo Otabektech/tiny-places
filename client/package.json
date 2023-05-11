@@ -12,6 +12,7 @@
     "@types/node": "^16.18.25",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.1",
+    "graphql": "^16.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
@@ -22,7 +23,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "codegen:schema": "npx rover --output json graph introspect http://localhost:9000/api > schema.json",
+    "codegen:generate": "graphql-codegen --config codegen.ts"
   },
   "eslintConfig": {
     "extends": [
@@ -42,5 +45,11 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://localhost:9000"
+  "proxy": "http://localhost:9000",
+  "devDependencies": {
+    "@graphql-codegen/cli": "3.3.1",
+    "@graphql-codegen/typescript": "^3.0.4",
+    "@graphql-codegen/typescript-resolvers": "^3.2.1",
+    "@graphql-codegen/client-preset": "3.0.1"
+  }
 }
