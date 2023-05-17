@@ -1,18 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
-
-import { Listings } from "./sections/Listings";
-// import { render } from "react-dom";
-import reportWebVitals from "./reportWebVitals";
 import "./styles/index.css";
+import { Listings } from "./sections/Listings";
+
+import reportWebVitals from "./reportWebVitals";
 
 const client = new ApolloClient({ uri: "/api", cache: new InMemoryCache() });
 
-// render(
-//   <Listings title="Tiny-Places Listings" />,
-//   document.getElementById("root")
-// );
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

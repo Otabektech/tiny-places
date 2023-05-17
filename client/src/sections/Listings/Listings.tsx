@@ -1,10 +1,7 @@
 import React from "react";
 import { gql } from "@apollo/client";
 import { useQuery, useMutation } from "@apollo/client";
-// import { Listings as ListingsData} from ""
-import List from "@mui/material/List";
-import { ListItem } from "@mui/material/List";
-import ListItemText from "@mui/material/List";
+import { Avatar, Button, List } from "antd";
 import {
   DeleteListingData,
   DeleteListingVariables,
@@ -60,9 +57,22 @@ export const Listings = ({ title }: Props) => {
       itemLayout="horizontal"
       dataSource={listings}
       renderItem={(listing) => (
-        <ListItem>
-          <ListItemText title={listing.title} />
-        </ListItem>
+        <List.Item
+          actions={[
+            <Button
+              type="primary"
+              onClick={() => handleDeleteListing(listing.id)}
+            >
+              Delete
+            </Button>,
+          ]}
+        >
+          <List.Item.Meta
+            title={listing.title}
+            description={listing.address}
+            avatar={<Avatar src={listing.image} shape="square" size={48} />}
+          />
+        </List.Item>
       )}
     />
   ) : null;
@@ -86,7 +96,7 @@ export const Listings = ({ title }: Props) => {
   ) : null;
 
   return (
-    <div className="listing">
+    <div className="listings">
       <h2>{title}</h2>
       {listingsList}
       {deleteListingLoadingMessage}
