@@ -1,12 +1,16 @@
 import React from "react";
 import { gql } from "@apollo/client";
 import { useQuery, useMutation } from "@apollo/client";
-import { List } from "@mui/material";
+// import { Listings as ListingsData} from ""
+import List from "@mui/material/List";
+import { ListItem } from "@mui/material/List";
+import ListItemText from "@mui/material/List";
 import {
   DeleteListingData,
   DeleteListingVariables,
   ListingsData,
 } from "./types";
+import "./styles/Listings.css";
 
 const LISTINGS = gql`
   query Listings {
@@ -52,18 +56,15 @@ export const Listings = ({ title }: Props) => {
   const listings = data ? data.listings : null;
 
   const listingsList = listings ? (
-    <ul>
-      {listings.map((listing) => {
-        return (
-          <li key={listing.id}>
-            {listing.title}{" "}
-            <button onClick={() => handleDeleteListing(listing.id)}>
-              Delete
-            </button>
-          </li>
-        );
-      })}
-    </ul>
+    <List
+      itemLayout="horizontal"
+      dataSource={listings}
+      renderItem={(listing) => (
+        <ListItem>
+          <ListItemText title={listing.title} />
+        </ListItem>
+      )}
+    />
   ) : null;
 
   if (loading) {
@@ -85,7 +86,7 @@ export const Listings = ({ title }: Props) => {
   ) : null;
 
   return (
-    <div>
+    <div className="listing">
       <h2>{title}</h2>
       {listingsList}
       {deleteListingLoadingMessage}
