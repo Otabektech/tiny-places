@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import { IResolvers } from "apollo-server-express"; // graphql
+import { IResolvers } from "@graphql-tools/utils";
 import { DataBase, Listing } from "../../../lib/types";
 
 export const listingResolvers: IResolvers = {
@@ -22,9 +22,10 @@ export const listingResolvers: IResolvers = {
         _id: new ObjectId(id),
       });
 
-      if (!deleteRes) {
+      if (!deleteRes.value) {
         throw new Error("failed to delete listing");
       }
+
       return deleteRes.value;
     },
   },

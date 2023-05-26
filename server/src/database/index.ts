@@ -1,14 +1,14 @@
-import { MongoClient, MongoClientOptions } from "mongodb";
-import { DataBase } from "../lib/types";
+import { MongoClient } from "mongodb";
+import { DataBase, Booking, Listing, User } from "../lib/types";
 
 const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_USER_PASSWORD}@${process.env.DB_CLUSTER}.mongodb.net/?retryWrites=true&w=majority`;
 
-const options: MongoClientOptions = {
-  useNewUrlParser: true,
-};
-
 export const connectDatabase = async (): Promise<DataBase> => {
-  const client = await MongoClient.connect(url, options);
+  const client = await MongoClient.connect(url);
   const db = client.db("main");
-  return { listings: db.collection("test_listings") };
+  return {
+    bookings: db.collection<Boooking>("bookings"),
+    listings: db.collection<Listing>("listings"),
+    users: db.collection<User>("users"),
+  };
 };
