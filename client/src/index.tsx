@@ -1,12 +1,35 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import "./styles/index.css";
-import { Listings } from "./sections/Listings";
+import {
+  Home,
+  Host,
+  Listing,
+  Listings,
+  NotFound,
+  User,
+} from "./sections/Listings";
 
 import reportWebVitals from "./reportWebVitals";
 
 const client = new ApolloClient({ uri: "/api", cache: new InMemoryCache() });
+
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" Component={Home} />
+        <Route path="/host" Component={Host} />
+        <Route path="/listing/:id" Component={Listing} />
+        <Route path="/listings/:location?" Component={Listings} />
+        <Route path="/user/:id" Component={User} />
+        <Route Component={NotFound} />
+      </Routes>
+    </Router>
+  );
+};
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -14,7 +37,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <Listings title="Tiny-Places Listings" />,
+      <App />
     </ApolloProvider>
   </React.StrictMode>
 );
