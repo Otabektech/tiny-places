@@ -3,14 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import "./styles/index.css";
-import {
-  Home,
-  Host,
-  Listing,
-  Listings,
-  NotFound,
-  User,
-} from "./sections/Listings";
+import { Home, Host, Listing, Listings, NotFound, User } from "./sections";
 
 import reportWebVitals from "./reportWebVitals";
 
