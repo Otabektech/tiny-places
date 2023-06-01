@@ -14,7 +14,7 @@ const mount = async (app: Application) => {
     resolvers,
     context: () => ({ db }),
   });
-  await server.start();
+  // await server.start();
   server.applyMiddleware({ app, path: "/api" });
 
   app.listen(process.env.PORT);
