@@ -46,6 +46,25 @@ const logInViaGoogle = async (
     { $set: { name: userName, avatar: userAvatar, contact: userEmail, token } },
     { returnOriginal: false }
   );
+
+  let viewer = updateRes.value;
+
+  if (!viewer) {
+    const insertResult = await db.users.insertOne({
+      _id: userId,
+      token,
+      name: userName,
+      avatar: userAvatar,
+      contact: userEmail,
+      income: 0,
+      bookings: [],
+      listings: [],
+    });
+
+    viewer = await db.users.findOne({ _id: insertResult.insertedId });
+  }
+
+  return viewer;
 };
 
 export const viewerResolvers: IResolvers = {
@@ -63,7 +82,7 @@ export const viewerResolvers: IResolvers = {
       _root: undefined,
       { input }: LogInArgs,
       { db }: { db: DataBase }
-    ) => {
+    ): Promise<Viewer> => {
       try {
         const code = input ? input.code : null;
         const token = crypto.randomBytes(16).toString("hex");
@@ -87,8 +106,12 @@ export const viewerResolvers: IResolvers = {
         throw new Error(`Failed to log in: ${error}`);
       }
     },
-    logOut: () => {
-      return "Mutation.logOut";
+    logOut: (): Viewer => {
+      try {
+        return { didRequest: true };
+      } catch (error) {
+        throw new Error(`Failed to log out: ${error}`);
+      }
     },
   },
   Viewer: {
